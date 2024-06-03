@@ -39,7 +39,24 @@ for i in range(H):
 ### [상미](./배열%20복원하기/상미.py)
 
 ```py
+import sys
+input = sys.stdin.readline
 
+H, W, X, Y = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(H+X)]
+
+A = [[0] * W for _ in range(H)]
+
+for i in range(H):
+    for j in range(W):
+        A[i][j] = arr[i][j]
+# print(A)
+for i in range(X, H):
+    for j in range(Y, W):
+        A[i][j] -= A[i-X][j-Y]
+
+for row in A:
+    print(*row)
 ```
 
 ### [성구](./배열%20복원하기/성구.py)
@@ -147,7 +164,7 @@ def bt(room, cost, N, doors, indoor, costs):
         if cost < costs[room]:
             return 0
         cost -= costs[room]
-    
+
 
     for door in tuple(doors[room]):
         if visited[door] == 0:
@@ -177,7 +194,7 @@ while True:
     visited.clear()
     for _ in range(N+1):
         visited.append(0)
- 
+
     if bt(0, 0, N, doors, indoor, costs):
         print("Yes")
     else:
@@ -270,17 +287,17 @@ def main():
         A, B = map(int, input().split())
         prerequisite[A].add(B)
         visited[B] += 1
-    
+
     # 최종 배열
     ans = [0] * N
-    
+
     # bfs
     que = deque()
     for i in range(1, N+1):
         if not visited[i]:
             que.append((i, 1))
             ans[i-1] = 1
-    
+
     while que:
         spot, deg = que.popleft()
         for node in tuple(prerequisite[spot]):
