@@ -1,6 +1,5 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10000)
 
 def dfs(nowin, money):
     type, val, next_rooms = rooms[nowin]
